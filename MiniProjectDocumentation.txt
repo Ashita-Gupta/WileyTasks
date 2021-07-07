@@ -1,0 +1,27 @@
+//High level design
+****Entities used in Online Banking System:****
+BANK:
+	Press 1. Create Account/Register
+		- user enters name & unique_user_id
+		- min_balance/deposit_amt=1000
+		- account_no automatically generated & allotted
+
+	Press 2 to view user details
+	Press 3 to view account details
+	Press 4 to credit/debit/transfer amount
+	Press 5 to get mini statement
+	Press 6 to view current account balance
+	Press 7 to exit
+
+ACCOUNT:
+	debit()
+	credit()
+	transfer amt to another account()
+	mini statement()
+	current balance()
+
+CUSTOMER:
+	cust_details()-- user_id,user_name
+	acc_details()
+
+	
