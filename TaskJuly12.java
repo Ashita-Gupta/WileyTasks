@@ -12,19 +12,13 @@ class EmployeeService implements Runnable{
 		myintlst=new ArrayList<>();
 		for(int i=10;i>=0;i--)
 		{
-			if (myintlst.contains(i))
-				;
-			else
-			{myintlst.add(i);
-			try {
-				Thread.sleep(1000);  
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(Thread.currentThread().getName()+" "+i);
-		}}
-		
+			if (Thread.currentThread().getName().equals("thread1") && i%2==0)
+			{	myintlst.add(i);}
+			else if(Thread.currentThread().getName().equals("thread2") && i%2!=0)
+			{myintlst.add(i);}
+			//System.out.println(Thread.currentThread().getName()+" "+i);
+		}
+	//	System.out.println(myintlst);
 	}
 	public List<Integer> getintlist()
 	{
@@ -39,8 +33,12 @@ public class TaskJuly12 {
 		EmployeeService eth1=new EmployeeService();
 		Thread et1=new Thread(eth1);
 		Thread et2=new Thread(eth1);
+		et1.setName("thread1");
+		et1.setName("thread2");
 		et1.start();
 		et2.start();
+		//eth1.getintlist().forEach(in->System.out.println("INT - "+in));
+		System.out.println(eth1.getintlist());
 	}
 
 }
