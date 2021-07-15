@@ -47,6 +47,14 @@ public class fibo_exec {
 		ExecutorService exec = Executors.newSingleThreadExecutor();
 		Myfibo obj = new Myfibo(10,ls);
 		Future <List<Integer>> callfuture = exec.submit(obj);
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		 if(callfuture.isDone())
 		 {
 			 try {
@@ -55,15 +63,6 @@ public class fibo_exec {
 				e.printStackTrace();
 			}
 		 }
-	/*	 try {
-			System.out.println(callfuture.get());
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		 exec.shutdown();
 		 
 	}
