@@ -34,22 +34,13 @@ class Transaction extends Account{
 
 class Account extends User{
 	
-	double curr_balance=acc_opening_bal;
+	double curr_balance;
 	
 	public Account(String name, String user_id, String acc_no,double acc_opening_bal) {
-		super(name, user_id, acc_no,acc_opening_bal);
-		double curr_balance=acc_opening_bal;
-		//this.curr_balance=acc_opening_bal;
-		// TODO Auto-generated constructor stub
-	}
-	
-/*	public Account(String name, String user_id, String acc_no)
-	{
 		super(name, user_id, acc_no);
-		double curr_balance=acc_opening_bal;
-	}*/
-	
-	//double curr_balance=acc_opening_bal;
+		this.curr_balance=acc_opening_bal;
+		
+	}
 	
 	public void credit(double amt,ArrayList <Transaction> trans_lst) {
 		curr_balance=curr_balance+amt;
@@ -109,12 +100,12 @@ class User{
 		this.acc_no=acc_no;
 	}*/
 	
-	public User(String name, String user_id,String acc_no,double acc_opening_bal)
+	public User(String name, String user_id,String acc_no)
 	{
 		this.name=name;
 		this.user_id=user_id;
 		this.acc_no=acc_no;
-		this.acc_opening_bal=acc_opening_bal; //minimum balance
+	//	this.acc_opening_bal=acc_opening_bal; //minimum balance
 	}
 	
 	@Override
@@ -156,16 +147,16 @@ public class Bank {
 		System.out.println("Enter opening balance: ");
 		double open_bal=sc.nextDouble();
 		if(open_bal<1000)
-			{System.out.println("Could not proceed further. Minimum opening balance is 1000");}
+			{System.err.println("Could not proceed further. Minimum opening balance is 1000");}
 		else
 		{double curr_balance=open_bal;
-		usr_lst.add(new User(name,id,acc_no,open_bal));
-		acc_lst.add(new Account(name,id,acc_no,curr_balance));}
+		usr_lst.add(new User(name,id,acc_no));
+		acc_lst.add(new Account(name,id,acc_no,open_bal));}
 		flag++;
 	}
 	
 	public void choice(){
-		Scanner sc=new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		
 		char ch=' ';
 		while(ch!='n')
@@ -189,22 +180,16 @@ public class Bank {
 				acc_lst.stream().filter(s->s.acc_no.equals(acc_no)).forEach(s->System.out.println(s));
 				break;
 				
-		case 4: System.out.println("Enter 1 for debit\nEnter 2 for credit\nEnter 3 for transfer\nEnter 4 for mini statement\nEnter 5 to check current balance: ");
+		case 4:		System.out.println("Enter account no: ");
+					String ac=sc.next(); 
+					
+			
+			System.out.println("Enter 1 for debit\nEnter 2 for credit\nEnter 3 for transfer\nEnter 4 for mini statement\nEnter 5 to check current balance: ");
 				int c=sc.nextInt();
-			/*	System.out.println("Enter name: ");
-				String name=sc.next();
-				System.out.println("Enter user_id: ");
-				String user_id=sc.nextLine();*/
-				System.out.println("Enter account no: ");
-				String ac=sc.nextLine();
-				//String name,user_id;
-				acc_lst.stream().filter(s->s.acc_no.equals(ac)).forEach(s->{
-					 String name=s.name;
-					 String user_id=s.user_id;
-					 double curr_bal=s.curr_balance;
 				
 				
-				Account aob=new Account(name,user_id,ac,curr_bal);
+				Account aob=acc_lst.stream().filter(s->s.acc_no.equals(ac)).findFirst().get();
+				
 				switch(c)
 				{
 				case 1:System.out.println("Enter amount: ");
@@ -227,7 +212,7 @@ public class Bank {
 					break;
 				default: System.err.println("Incorrect choice");
 				}
-				}); //end of ForEach loop
+				//}//); //end of ForEach loop
 				break;
 			
 		case 5: System.out.println("Terminating..Please wait!");
@@ -241,6 +226,7 @@ public class Bank {
 		
 		System.out.print("Do you want to continue: press y/n ");
 		ch=sc.next().charAt(0);
+		show_menu();
 		}
 	}
 	
